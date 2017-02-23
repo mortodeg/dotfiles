@@ -1,0 +1,16 @@
+# Temp files
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Mac OS files
+.DS_Store*
+Icon?
+
+# Windows files
+Desktop.ini
+ehthumbs.db
+Thumbs.db

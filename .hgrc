@@ -1,0 +1,57 @@
+[tortoisehg]
+tabwidth = 4
+engmsg = True
+
+[ui]
+username = Name <email>
+
+[alias]
+latest = log --limit 5
+
+[extensions]
+mq =
+color =
+progress =
+hgext.churn =
+hgext.purge =
+hgext.graphlog =
+hgext.extdiff =
+
+[merge-patterns]
+# Can have different programs for different files.
+# Use entries from [merge-tools].
+# * is restricted to within a dir
+# ** will cross dir boundaries
+# Example, will open c-files in vim:
+# **.c = vimdiff
+** = kdiff3
+
+[merge-tools]
+# Kdiff3
+kdiff3.executable = kdiff3
+kdiff3.gui = true
+# gVim
+gvimdiff.executable = gvim
+gvimdiff.args = -d $local $other
+gvimdiff.checkchanged = true
+gvimdiff.gui = true
+# Dummy tools to automerge by discarding either change
+autoMergeUseOther.premerge = False
+autoMergeUseOther.args= --auto $base $other $other -o $output
+autoMergeUseOther.executable = kdiff3
+autoMergeUseMine.premerge = False
+autoMergeUseMine.args = --auto $base $local $local -o $output
+autoMergeUseMine.executable = kdiff3
+
+[extdiff]
+# Create new commands for using different diff tools
+# Kdiff3
+cmd.kdiff = kdiff3
+cmd.kdiff3 = kdiff3
+# gVim
+cmd.gvimdiff = gvim
+opts.gvimdiff = -f '+next' '+execute "DirDiff" argv(0) argv(1)'
+# vim
+cmd.vimdiff = vim
+
+%include Mercurial-custom.ini
