@@ -7,8 +7,35 @@
 	excludesfile = ~/.gitignore_global
 [push]
 	default = upstream
+
 [diff]
     mnemonicprefix = true
+    # Default tool for git-difftool. Override with git difftool -t <tool>
+	tool = semanticmerge
+[difftool]
+	# When several files are changed, ask to open tool for each file. Override with -y or --prompt
+	prompt = true
+[difftool "semanticmerge"]
+	# https://www.semanticmerge.com/
+	# Write full path to exe if not in PATH
+	cmd = semanticmergetool.exe -s \"$LOCAL\" -d \"$REMOTE\"
+# Some tools are automatically defined, such as kdiff3 (git difftool --tool-help), but can be configured
+[difftool "kdiff3"]
+    # Set path if app not in PATH
+	# Whether to abort if the program returns non-zero
+	trustexitcode = false
+
+# Much same options as diff.*, see comments there
+[merge]
+	tool = semanticmerge
+[mergetool]
+	prompt = false
+	# Whether to keep .orig files
+	keepbackup = false
+[mergetool "semanticmerge"]
+	cmd = semanticmergetool.exe -s \"$LOCAL\" -d \"$REMOTE\" -b \"$BASE\" -r \"$MERGED\"
+	trustexitcode = true
+
 [color]
 	ui = auto
 [color "branch"]
@@ -25,12 +52,14 @@
 	added = green bold
 	changed = yellow bold
 	untracked = red bold
+
 [url "https://github.com/"]
     insteadOf = gh:
 [url "https://gist.github.com/"]
     insteadOf = gist:
 [url "https://bitbucket.org/"]
     insteadOf = bb:
+
 [alias]
 	a = add --all
 	ai = add -i
@@ -143,6 +172,7 @@
 	rpu = remote prune upstream
 	#############
 	s = status
+	st = status
 	sb = status -s -b
 	#############
 	sa = stash apply
