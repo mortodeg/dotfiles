@@ -19,6 +19,9 @@
     # https://www.semanticmerge.com/
     # Write full path to exe if not in PATH
     cmd = semanticmergetool.exe -s \"$LOCAL\" -d \"$REMOTE\"
+# Sourcetree added this one itself
+[difftool "sourcetree"]
+    cmd = 'C:/Program Files/KDiff3/kdiff3.exe' \"$LOCAL\" \"$REMOTE\"
 # Some tools are automatically defined, such as kdiff3 (git difftool --tool-help), but can be configured
 [difftool "kdiff3"]
     # Set path if app not in PATH
@@ -61,6 +64,14 @@
     insteadOf = bb:
 
 [alias]
+    # Reset the date of the last commit
+    resetdate = commit --amend --date=now
+    
+    # Amend to last commit, keep commit message
+    amend = git commit --amend --no-edit
+    
+# I found these somewhere
+#########################
     a = add --all
     ai = add -i
     #############
@@ -209,9 +220,6 @@
     #############
     # Show all of my configured aliases
     aliases = !git config --list | grep 'alias\\.' | sed 's/alias\\.\\([^=]*\\)=\\(.*\\)/\\1\\ \t => \\2/' | sort
-    
-    # For when you made that commit a bit too early, amend
-    amend = !git log -n 1 --pretty=tformat:%s%n%n%b | git commit -F - --amend
     
     # View the log and diff for a commit (previous if no SHA1 provided)
     details = log -n1 -p --format=fuller
